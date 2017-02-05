@@ -1,4 +1,5 @@
-function test_example_CNN
+function net = test_example_CNN
+addpath(genpath("../"));
 load mnist_uint8;
 
 train_x = double(reshape(train_x',28,28,60000))/255;
@@ -29,7 +30,9 @@ cnn = cnnsetup(cnn, train_x, train_y);
 cnn = cnntrain(cnn, train_x, train_y, opts);
 
 [er, bad] = cnntest(cnn, test_x, test_y);
+net = cnn;
 
 %plot mean squared error
 figure; plot(cnn.rL);
 assert(er<0.12, 'Too big error');
+end 
